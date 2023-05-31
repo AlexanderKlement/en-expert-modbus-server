@@ -1,4 +1,5 @@
 import logging
+import random
 import time
 from typing import Tuple
 
@@ -26,14 +27,25 @@ def start_service():
 
 def get_data() -> list[Tuple]:
     # NOTE: If len(tuple) > 4 the register offset has to be increased.
-    return []
+    return generate_stub_data()
+
+
+def generate_stub_data() -> list[Tuple]:
+    length = 20
+
+    stub_list = []
+
+    for i in range(length):
+        stub_list.append((random.uniform(0.0, 1000.0), random.uniform(0.0, 1000.0)))
+
+    return stub_list
 
 
 def update_modbus(data: list[Tuple]) -> None:
     client = ModbusClient(host)
     try:
         if not client.connect():
-            raise ConnectionError("Cannot connect to ModbusServer on %s", host)
+            raise ConnectionError("Cannot connect to modbus server on %s", host)
         for index, single_tuple in enumerate(data):
             address = index * register_offset
             for value in single_tuple:

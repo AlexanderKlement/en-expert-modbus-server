@@ -4,7 +4,7 @@
 case "$1" in
 start)
   echo "Starting en-expert modbus server service"
-  /usr/bin/python3 /opt/en-expert/modbus-server/server-service/main.py &
+  /usr/local/bin/python3 /opt/en-expert/modbus-server/server-service/main.py &
   ;;
 stop)
   echo "Stopping en-expert modbus server service"
@@ -13,7 +13,7 @@ stop)
 restart)
   echo "Restarting en-expert modbus server service"
   pkill -f /opt/en-expert/modbus-server/server-service/main.py
-  /usr/bin/python3 /opt/en-expert/modbus-server/server-service/main.py &
+  /usr/local/bin/python3 /opt/en-expert/modbus-server/server-service/main.py &
   ;;
 *)
   echo "Usage: /etc/init.d/en-expert-modbus-server {start|stop|restart}"

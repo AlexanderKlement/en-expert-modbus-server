@@ -4,7 +4,7 @@
 case "$1" in
 start)
   echo "Starting en-expert modbus updater service"
-  /usr/bin/python3 /opt/en-expert/modbus-updater/updater-service/main.py
+  /usr/local/bin/python3 /opt/en-expert/modbus-updater/updater-service/main.py
   ;;
 stop)
   echo "Stopping en-expert modbus updater service"
@@ -13,7 +13,7 @@ stop)
 restart)
   echo "Restarting en-expert modbus updater service"
   pkill -f /opt/en-expert/modbus-updater/updater-service/main.py
-  /usr/bin/python3 /opt/en-expert/modbus-updater/updater-service/main.py &
+  /usr/local/bin/python3 /opt/en-expert/modbus-updater/updater-service/main.py &
   ;;
 *)
   echo "Usage: /etc/init.d/en-expert-modbus-updater {start|stop|restart}"

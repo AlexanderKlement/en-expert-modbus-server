@@ -1,8 +1,29 @@
 # EnExpert Modbus Server (for ResIOT Gateway x2)
 
-This scripts are providing a ModBusTCP Slave that can be updated via an external Database.
+These scripts are providing a ModBusTCP Slave that can be updated via an external Database.
 
-## Install Notes
+## Install via Installer:
+
+1. Get latest release (replace RELEASE)
+
+````bash
+curl -LJO https://github.com/AlexanderKlement/en-expert-modbus-service/archive/refs/tags/RELEASE.tar.gz
+````
+
+2. Extract the archive
+
+````bash
+tar xzvf en-expert-modbus-service-RELEASE.tar.gz
+````
+
+3. Run the installer
+
+````bash
+cd en-expert-modbus-service-RELEASE
+./install.sh
+````
+
+## Manual Install Notes
 
 1. Copy the files on the device (Suggestion: /opt/en-expert/modbus-server/)
    Rename the config.example.yml file to config.yml and edit it to match your setup.

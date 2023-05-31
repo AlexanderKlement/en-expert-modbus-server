@@ -1,11 +1,11 @@
 import logging
 import random
 import time
-from typing import Tuple
-
+from typing import List, Tuple
 from pymodbus.constants import Endian
 from pymodbus.payload import BinaryPayloadBuilder
 from pymodbus.client.sync import ModbusTcpClient as ModbusClient
+
 
 logging.basicConfig(filename='/var/log/en-expert-modbus-updater.log', level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
@@ -16,6 +16,8 @@ HOST = "localhost"
 
 
 def start_service():
+    # Just making sure the modbus server is available.
+    time.sleep(2)
     while True:
         try:
             data = get_data()
@@ -25,12 +27,12 @@ def start_service():
         time.sleep(INTERVAL_SECONDS)
 
 
-def get_data() -> list[Tuple]:
+def get_data() -> List[Tuple]:
     # NOTE: If len(tuple) > 4 the register offset has to be increased.
     return generate_stub_data()
 
 
-def generate_stub_data() -> list[Tuple]:
+def generate_stub_data() -> List[Tuple]:
     length = 20
 
     stub_list = []
@@ -41,11 +43,11 @@ def generate_stub_data() -> list[Tuple]:
     return stub_list
 
 
-def update_modbus(data: list[Tuple]) -> None:
+def update_modbus(data: List[Tuple]) -> None:
     client = ModbusClient(HOST)
     try:
         if not client.connect():
-            raise ConnectionError(f"Cannot connect to modbus server on {HOST}")
+            raise ConnectionError("Cannot connect to modbus server on {}".format(HOST))
         for index, single_tuple in enumerate(data):
             address = index * REGISTER_OFFSET
             for value in single_tuple:

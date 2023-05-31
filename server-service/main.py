@@ -1,8 +1,7 @@
 import logging
 from pymodbus.datastore import ModbusSequentialDataBlock
 from pymodbus.datastore import ModbusSlaveContext, ModbusServerContext
-from pymodbus.server.async_io import StartTcpServer
-
+from pymodbus.server.sync import StartTcpServer
 
 logging.basicConfig(filename='/var/log/en-expert-modbus-server.log', level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')

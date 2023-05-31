@@ -7,14 +7,14 @@ from pymodbus.server.async_io import StartTcpServer
 logging.basicConfig(filename='/var/log/en-expert-modbus-server.log', level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
-default_value = 0
-start_address = 0
-amount_registers = 100
+DEFAULT_VALUE = 0
+START_ADDRESS = 0
+AMOUNT_REGISTERS = 100
 
 
 def start_server():
     store = ModbusSlaveContext(
-        hr=ModbusSequentialDataBlock(start_address, [default_value] * amount_registers))
+        hr=ModbusSequentialDataBlock(START_ADDRESS, [DEFAULT_VALUE] * AMOUNT_REGISTERS))
     context = ModbusServerContext(slaves=store, single=True)
 
     StartTcpServer(context)

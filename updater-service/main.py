@@ -10,9 +10,9 @@ from pymodbus.client.sync import ModbusTcpClient as ModbusClient
 logging.basicConfig(filename='/var/log/en-expert-modbus-updater.log', level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
-interval_seconds = 120  # 2 mins for start
-register_offset = 8  # we use 2 * 32 bit, so we have another 2 available
-host = "localhost"
+INTERVAL_SECONDS = 120  # 2 mins for start
+REGISTER_OFFSET = 8  # we use 2 * 32 bit, so we have another 2 available
+HOST = "localhost"
 
 
 def start_service():
@@ -20,9 +20,9 @@ def start_service():
         try:
             data = get_data()
             update_modbus(data)
-        except Exception as e:
-            logging.error(e)
-        time.sleep(interval_seconds)
+        except Exception as err:
+            logging.error(err)
+        time.sleep(INTERVAL_SECONDS)
 
 
 def get_data() -> list[Tuple]:
@@ -35,19 +35,19 @@ def generate_stub_data() -> list[Tuple]:
 
     stub_list = []
 
-    for i in range(length):
+    for _ in range(length):
         stub_list.append((random.uniform(0.0, 1000.0), random.uniform(0.0, 1000.0)))
 
     return stub_list
 
 
 def update_modbus(data: list[Tuple]) -> None:
-    client = ModbusClient(host)
+    client = ModbusClient(HOST)
     try:
         if not client.connect():
-            raise ConnectionError("Cannot connect to modbus server on %s", host)
+            raise ConnectionError(f"Cannot connect to modbus server on {HOST}")
         for index, single_tuple in enumerate(data):
-            address = index * register_offset
+            address = index * REGISTER_OFFSET
             for value in single_tuple:
                 write_float_to_modbus(client=client, starting_address=address, value=value)
                 address += 2  # 32 bit float uses 2 16-bit registers

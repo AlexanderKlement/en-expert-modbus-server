@@ -43,7 +43,7 @@ chmod +x /etc/init.d/en-expert-modbus-updater.sh
 echo "Installing services"
 update-rc.d en-expert-modbus-updater.sh defaults
 update-rc.d en-expert-modbus-server.sh defaults
-/etc/init.d/en-expert-modbus-server.sh start &
-/etc/init.d/en-expert-modbus-updater.sh start &
+/etc/init.d/en-expert-modbus-server.sh restart
+/etc/init.d/en-expert-modbus-updater.sh restart
 
 echo "Finished. OK"

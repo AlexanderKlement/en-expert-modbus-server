@@ -1,27 +1,22 @@
-# EnExpert Modbus Server (for ResIOT Gateway x2)
+# EnExpert Modbus Server + Updater (for ResIOT Gateway x2)
 
 These scripts are providing a ModBusTCP Slave that can be updated via an external Database.
 
-## Install via Installer:
+## Install via Installer (recommended):
 
 1. Get latest release (replace RELEASE)
-
-````bash
-curl -LJO https://github.com/AlexanderKlement/en-expert-modbus-service/archive/refs/tags/RELEASE.tar.gz
-````
-
+   ````bash
+   curl -LJO https://github.com/AlexanderKlement/en-expert-modbus-service/archive/refs/tags/RELEASE.tar.gz
+   ````
 2. Extract the archive
-
-````bash
-tar xzvf en-expert-modbus-service-RELEASE.tar.gz
-````
-
+   ````bash
+   tar xzvf en-expert-modbus-service-RELEASE.tar.gz
+   ````
 3. Run the installer
-
-````bash
-cd en-expert-modbus-service-RELEASE
-./install.sh
-````
+   ````bash
+   cd en-expert-modbus-service-RELEASE
+   ./install.sh
+   ````
 
 ## Manual Install Notes
 
@@ -57,8 +52,8 @@ cd en-expert-modbus-service-RELEASE
    Remember: Since we have no `service`, `systemctl` or other System V wrapper , we have to use the init.d script
    directly
    ```bash
-   service /etc/init.d/en-expert-modbus-server start
-   service /etc/init.d/en-expert-modbus-updater start
+   service /etc/init.d/en-expert-modbus-server restart
+   service /etc/init.d/en-expert-modbus-updater restart
    ```
    ```bash
    service /etc/init.d/en-expert-modbus-server status

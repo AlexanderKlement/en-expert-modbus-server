@@ -15,6 +15,7 @@ These scripts are providing a ModBusTCP Slave that can be updated via an externa
 3. Run the installer
    ````bash
    cd en-expert-modbus-service-RELEASE
+   chmod +x install.sh
    ./install.sh
    ````
 

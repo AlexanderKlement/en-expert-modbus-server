@@ -31,8 +31,8 @@ pip3 install -r requirements.txt
 mkdir -p /opt/en-expert
 
 echo "Copying data"
-cp -r server-service /opt/en-expert/modbus-server
-cp -r updater-service /opt/en-expert/modbus-updater
+cp -r server /opt/en-expert/modbus-server
+cp -r updater /opt/en-expert/modbus-updater
 cp services/en-expert-modbus-server.sh /etc/init.d/en-expert-modbus-server.sh
 cp services/en-expert-modbus-updater.sh /etc/init.d/en-expert-modbus-updater.sh
 

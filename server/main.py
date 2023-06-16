@@ -8,7 +8,7 @@ logging.basicConfig(filename='/var/log/en-expert-modbus-server.log', level=loggi
 
 DEFAULT_VALUE = 0
 START_ADDRESS = 0
-AMOUNT_REGISTERS = 200
+AMOUNT_REGISTERS = 0x2000
 
 
 def start_server():

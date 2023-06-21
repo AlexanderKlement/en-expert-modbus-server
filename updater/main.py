@@ -51,7 +51,7 @@ def set_fixed_data(client: ModbusClient):
 
 
 def update_modbus(data: List[Tuple]) -> None:
-    client = ModbusClient(HOST)
+    client = ModbusClient(HOST, port=1502)
     try:
         if not client.connect():
             raise ConnectionError("Cannot connect to modbus server on {}".format(HOST))

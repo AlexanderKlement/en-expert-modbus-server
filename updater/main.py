@@ -100,7 +100,6 @@ def write_float_to_modbus(client: ModbusClient, starting_address: int, value: fl
     :param value:
     :return:
     """
-    print("Writing value", value, "to address", hex(starting_address))
     builder = BinaryPayloadBuilder(byteorder=Endian.Big, wordorder=Endian.Little)
     builder.add_32bit_float(value)
     registers = builder.to_registers()

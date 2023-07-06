@@ -12,7 +12,7 @@ if os.name != 'nt':
     logging.basicConfig(filename='/var/log/en-expert-modbus-updater.log', level=logging.INFO,
                         format='%(asctime)s - %(levelname)s - %(message)s')
 
-INTERVAL_SECONDS = 60  # 2 mins for start
+INTERVAL_SECONDS = 60  # 1 mins for start
 REGISTER_SIZE = 2  # 32 bit
 BLOCK_SIZE = 10
 REGISTER_OFFSET = REGISTER_SIZE * BLOCK_SIZE  # we use 2 * 32 bit, so we have another 2 available
@@ -37,7 +37,7 @@ def get_data() -> List[Tuple]:
     url = "https://api2.en-expert.com/measurment/last_ekos_value/KWCD0hwIP52zJ3SvJR8lNGa21e6UP46OhbC8o9YrX1FBI7DFXbtSdsMdWpV3hhpy"
 
     # Make a GET request
-    response = requests.get(url, headers={"accept": "application/json"})
+    response = requests.get(url, headers={"accept": "application/json"}, timeout=INTERVAL_SECONDS)
 
     # Check that the request was successful
     if response.status_code == 200:
@@ -72,7 +72,7 @@ def update_modbus(data: List[Tuple]) -> None:
     client = ModbusClient(HOST, port=1502)
     try:
         if not client.connect():
-            raise ConnectionError(f"Cannot connect to modbus server on {HOST}")
+            raise ConnectionError("Cannot connect to modbus server on " + HOST)
         set_fixed_data(client=client)
         for index, single_tuple in enumerate(data):
             address = START + (index * REGISTER_OFFSET)

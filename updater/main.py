@@ -14,7 +14,7 @@ if os.name != 'nt':
 
 INTERVAL_SECONDS = 60  # 1 mins for start
 REGISTER_SIZE = 2  # 32 bit
-BLOCK_SIZE = 10
+BLOCK_SIZE = 8
 REGISTER_OFFSET = REGISTER_SIZE * BLOCK_SIZE  # we use 2 * 32 bit, so we have another 2 available
 START = 0x1000
 HOST = "localhost"
@@ -100,6 +100,7 @@ def write_float_to_modbus(client: ModbusClient, starting_address: int, value: fl
     :param value:
     :return:
     """
+    print("Writing value", value, "to address", hex(starting_address))
     builder = BinaryPayloadBuilder(byteorder=Endian.Big, wordorder=Endian.Little)
     builder.add_32bit_float(value)
     registers = builder.to_registers()

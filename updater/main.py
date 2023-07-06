@@ -44,9 +44,16 @@ def get_data() -> List[Tuple]:
         # Parse the JSON response into a Python dictionary
         data = response.json()
 
-        tuple_list = [tuple(d.values()) for d in data]
+        list_of_tuples = [(
+            item["powerActual"],
+            item["powerIntegral"],
+            item["voltage"],
+            item["frequency"],
+            item["thdu"],
+            item["peakVoltage"],
+        ) for item in data]
 
-        return tuple_list
+        return list_of_tuples
 
     logging.error("Request failed with status code %s", response.status_code)
     return []

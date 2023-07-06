@@ -3,9 +3,11 @@ from pymodbus.datastore import ModbusSequentialDataBlock
 from pymodbus.datastore import ModbusSlaveContext, ModbusServerContext
 from pymodbus.device import ModbusDeviceIdentification
 from pymodbus.server.sync import StartTcpServer
+import os
 
-#logging.basicConfig(filename='/var/log/en-expert-modbus-server.log', level=logging.INFO,
-#                    format='%(asctime)s - %(levelname)s - %(message)s')
+if os.name != 'nt':
+    logging.basicConfig(filename='/var/log/en-expert-modbus-server.log', level=logging.INFO,
+                        format='%(asctime)s - %(levelname)s - %(message)s')
 
 DEFAULT_VALUE = 0
 START_ADDRESS = 0x0

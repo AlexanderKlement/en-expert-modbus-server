@@ -1,15 +1,18 @@
 import logging
 import random
+import requests
 import time
 from typing import List, Tuple
 from pymodbus.constants import Endian
 from pymodbus.payload import BinaryPayloadBuilder
 from pymodbus.client.sync import ModbusTcpClient as ModbusClient
+import os
 
-logging.basicConfig(filename='/var/log/en-expert-modbus-updater.log', level=logging.INFO,
-                    format='%(asctime)s - %(levelname)s - %(message)s')
+if os.name != 'nt':
+    logging.basicConfig(filename='/var/log/en-expert-modbus-updater.log', level=logging.INFO,
+                        format='%(asctime)s - %(levelname)s - %(message)s')
 
-INTERVAL_SECONDS = 120  # 2 mins for start
+INTERVAL_SECONDS = 60  # 2 mins for start
 REGISTER_SIZE = 2  # 32 bit
 BLOCK_SIZE = 10
 REGISTER_OFFSET = REGISTER_SIZE * BLOCK_SIZE  # we use 2 * 32 bit, so we have another 2 available
@@ -30,8 +33,23 @@ def start_service():
 
 
 def get_data() -> List[Tuple]:
-    # NOTE: If len(tuple) > 4 the register offset has to be increased.
-    return generate_stub_data()
+    # The URL you want to make a GET request to
+    url = "https://api2.en-expert.com/measurment/last_ekos_value/KWCD0hwIP52zJ3SvJR8lNGa21e6UP46OhbC8o9YrX1FBI7DFXbtSdsMdWpV3hhpy"
+
+    # Make a GET request
+    response = requests.get(url, headers={"accept": "application/json"})
+
+    # Check that the request was successful
+    if response.status_code == 200:
+        # Parse the JSON response into a Python dictionary
+        data = response.json()
+
+        tuple_list = [tuple(d.values()) for d in data]
+
+        return tuple_list
+
+    logging.error("Request failed with status code %s", response.status_code)
+    return []
 
 
 def generate_stub_data() -> List[Tuple]:
@@ -54,7 +72,7 @@ def update_modbus(data: List[Tuple]) -> None:
     client = ModbusClient(HOST, port=1502)
     try:
         if not client.connect():
-            raise ConnectionError("Cannot connect to modbus server on {}".format(HOST))
+            raise ConnectionError(f"Cannot connect to modbus server on {HOST}")
         set_fixed_data(client=client)
         for index, single_tuple in enumerate(data):
             address = START + (index * REGISTER_OFFSET)

@@ -12,7 +12,7 @@ if os.name != 'nt':
     logging.basicConfig(filename='/var/log/en-expert-modbus-updater.log', level=logging.INFO,
                         format='%(asctime)s - %(levelname)s - %(message)s')
 
-INTERVAL_SECONDS = 60  # 1 mins for start
+INTERVAL_SECONDS = 10  # reduced to 10 mins, hope this is ok
 REGISTER_SIZE = 2  # 32 bit
 BLOCK_SIZE = 8
 REGISTER_OFFSET = REGISTER_SIZE * BLOCK_SIZE  # we use 2 * 32 bit, so we have another 2 available

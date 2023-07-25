@@ -33,8 +33,8 @@ mkdir -p /opt/en-expert
 echo "Copying data"
 mkdir -p /opt/en-expert/modbus-server
 mkdir -p /opt/en-expert/modbus-updater
-cp -r server/* /opt/en-expert/modbus-server
-cp -r updater/* /opt/en-expert/modbus-updater
+cp -r server/* /opt/en-expert/modbus-server/
+cp -r updater/* /opt/en-expert/modbus-updater/
 cp services/en-expert-modbus-server.sh /etc/init.d/en-expert-modbus-server.sh
 cp services/en-expert-modbus-updater.sh /etc/init.d/en-expert-modbus-updater.sh
 

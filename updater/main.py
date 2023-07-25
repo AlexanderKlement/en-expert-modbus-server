@@ -34,6 +34,7 @@ def start_service():
 
 def get_data() -> List[Tuple]:
     # The URL you want to make a GET request to
+    # This link will soon be ip regulated, therefore leaking this shouldn't be a problem
     url = "https://api2.en-expert.com/measurment/last_ekos_value/KWCD0hwIP52zJ3SvJR8lNGa21e6UP46OhbC8o9YrX1FBI7DFXbtSdsMdWpV3hhpy"
 
     # Make a GET request
